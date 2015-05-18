@@ -1,8 +1,9 @@
 RUTA-REST
 =========
 
-API RESTful de La Ruta App (Node.js y base de datos Postgres).
+API RESTful de La Ruta App (Node.js y Postgres).
 
+##### Nota
 
 Llaves generadas con:
 ```sh

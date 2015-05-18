@@ -17,7 +17,7 @@ exports.addUser = function(req, res) {
     user.password = bcrypt.hashSync(user.password, salt);
 
     pg.connect(connectionString, function(err, client, done) {
-        var queryTxt = "INSERT INTO public.user (nickname, email, password, creation) values ($1, $2, $3, (NOW()::TIMESTAMP WITHOUT TIME ZONE)) RETURNING id";
+        var queryTxt = "INSERT INTO public.user (nickname, email, password, creation) values ($1, $2, $3, (now()::timestamp)) RETURNING id";
         client.query(queryTxt, [user.nickname, user.email, user.password], function(error, result) {
             if(error) {
                 res.status(500).send(error);

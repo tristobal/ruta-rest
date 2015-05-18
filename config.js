@@ -10,4 +10,5 @@ module.exports = {
     SALT_WORK_FACTOR: 10,
     PRIVATE_KEY: private_key,
     PUBLIC_KEY: public_key,
+    ID_LIST_RUTA: 1
 };

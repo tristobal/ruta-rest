@@ -29,6 +29,7 @@ app.use(router);
 
 //Controladores
 var UserCtrl = require("./controllers/users.js");
+var TaskCtrl = require("./controllers/tasks.js");
 //var PlaceCtrl = require("./controllers/places.js");
 
 
@@ -39,6 +40,8 @@ var router = express.Router();
 router.use(middleware.ensureAuthenticated);
 //router.get('/users', UserCtrl.getAll);
 router.put('/user/:id', UserCtrl.update);
+router.delete('/user/:id', UserCtrl.delete);
+router.get('/tasks/:id_list', TaskCtrl.getTasksByList);
 /*
 router.get('/places', PlaceCtrl.getAll);
 router.post('/place', PlaceCtrl.add);

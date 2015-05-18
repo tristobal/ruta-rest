@@ -5,7 +5,7 @@ var connectionString = process.env.DATABASE_URL || config.DATABASE_POSTGRES_LOCA
 exports.addList = function(req, res) {
     pg.connect(connectionString, function(err, client, done) {
         var queryTxt = "INSERT INTO list (id_user, name) values ($1, $2) RETURNING id";
-        client.query(queryTxt, [req.body.id_user, req.body.name], function(error, result) {
+        var query = client.query(queryTxt, [req.body.id_user, req.body.name], function(error, result) {
             if(error) {
                 res.status(500).send(error);
             } else {

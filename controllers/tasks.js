@@ -1,30 +1,40 @@
-var mongoose = require("mongoose");
+var pg = require('pg');
+var config = require('../config');
+var connectionString = process.env.DATABASE_URL || config.DATABASE_POSTGRES_LOCAL;
 
-//Nombre del modelo definido en ../models/tvshow.js
-var Place = mongoose.model("Place");
-
-exports.getAll = function(req, res) {
-    Place.find({}).populate('author').exec(function(err, places) {
-        if(err) {
-            res.send(500, err.message);
+exports.getTasksByList = function(req, res) {
+    pg.connect(connectionString, function(err, client, done) {
+        if (err) {
+            console.log(err);
+            res.status(500).send(err);
         } else {
-            console.log('GET /places');
-            res.status(200).jsonp(places);
+
+            var query = client.query("SELECT id, name, visited FROM task WHERE id_list = $1 ORDER BY name", [req.params.id_list]);
+            var results = [];
+            query.on('row', function(row) {
+                results.push(row);
+            });
+
+            query.on('end', function() {
+                client.end();
+                res.status(200).json(results);
+            });
         }
+
     });
 };
 
 exports.findById = function(req, res) {
-    Place.findById(req.params.id).populate('author').exec(function(err, tvshow) {
+    /*Place.findById(req.params.id).populate('author').exec(function(err, tvshow) {
         if(err) return res.send(500, err.message);
 
         console.log('GET /place/' + req.params.id);
         res.status(200).jsonp(tvshow);
-    });
+    });*/
 };
 
 exports.add = function(req, res) {
-    console.log('POST');
+    /*console.log('POST');
     console.log(req.body);
 
     var place = new Place({
@@ -41,11 +51,11 @@ exports.add = function(req, res) {
     place.save(function(err, placeResp) {
         if(err) return res.send(500, err.message);
         res.status(200).jsonp(placeResp);
-    });
+    });*/
 };
 
 exports.update = function(req, res) {
-    Place.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
+    /*Place.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
         if (err) {
             return res.send(500, err.message);
         } else if (post) {
@@ -53,29 +63,11 @@ exports.update = function(req, res) {
         } else {
             res.status(404).json({ message: 'Record not found' });
         }
-    });
-
-    /*
-    Place.findById(req.params.id, function(err, place) {
-        place.name =         req.body.name;
-        place.location =     req.body.location;
-        place.address =      req.body.address;
-        place.notes =        req.body.notes;
-        place.author =       mongoose.Types.ObjectId(req.body.author);
-        //place.creation =     req.body.creation;
-        place.visited =      req.body.visited;
-        place.geoplacedata = JSON.stringify(req.body.geoplacedata);
-
-        place.save(function(err) {
-            if(err) return res.send(500, err.message);
-            res.status(200).jsonp(place);
-        });
-    });
-    */
+    });*/
 };
 
 exports.delete = function(req, res) {
-    Place.findByIdAndRemove(req.params.id, function(err, post) {
+    /*Place.findByIdAndRemove(req.params.id, function(err, post) {
         if (err) {
             return res.send(500, err.message);
         } else if (post) {
@@ -83,5 +75,5 @@ exports.delete = function(req, res) {
         } else {
             res.status(404).json({ message: 'Record not found' });
         }
-    });
+    });*/
 };
