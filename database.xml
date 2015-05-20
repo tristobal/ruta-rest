@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- SQL XML created by WWW SQL Designer, https://github.com/ondras/wwwsqldesigner/ -->
-<!-- Active URL: http://localhost:3000/ -->
+<!-- Active URL: http://localhost:4000/ -->
 <sql>
     <datatypes db="postgresql">
         <group label="Numeric" color="rgb(238,238,170)">
@@ -41,61 +41,58 @@
             <type label="Inet CIDR Addr" length="0" sql="CIDR" quote="'"/>
             <type label="Geometry" length="0" sql="GEOMETRY" quote="'"/>
         </group>
-    </datatypes>
-
-    <table x="144" y="254" name="user">
-        <row name="id" null="1" autoincrement="1">
-            <datatype>INTEGER</datatype>
-            <default>NULL</default></row>
-            <row name="nickname" null="0" autoincrement="0">
+    </datatypes><table x="144" y="254" name="user">
+    <row name="id" null="1" autoincrement="1">
+        <datatype>INTEGER</datatype>
+        <default>NULL</default></row>
+        <row name="nickname" null="0" autoincrement="0">
+            <datatype>VARCHAR</datatype>
+            <default>'NULL'</default></row>
+            <row name="email" null="0" autoincrement="0">
                 <datatype>VARCHAR</datatype>
                 <default>'NULL'</default></row>
-                <row name="email" null="0" autoincrement="0">
+                <row name="password" null="0" autoincrement="0">
                     <datatype>VARCHAR</datatype>
                     <default>'NULL'</default></row>
-                    <row name="password" null="0" autoincrement="0">
-                        <datatype>VARCHAR</datatype>
-                        <default>'NULL'</default></row>
-                        <row name="notifications" null="0" autoincrement="0">
-                            <datatype>BOOLEAN</datatype>
-                            <default>'true'</default></row>
-                            <row name="creation" null="1" autoincrement="0">
-                                <datatype>TIMESTAMP WITHOUT TIME ZONE</datatype>
+                    <row name="notifications" null="0" autoincrement="0">
+                        <datatype>BOOLEAN</datatype>
+                        <default>'true'</default></row>
+                        <row name="creation" null="1" autoincrement="0">
+                            <datatype>TIMESTAMP WITHOUT TIME ZONE</datatype>
+                            <default>NULL</default></row>
+                            <key type="PRIMARY" name="">
+                                <part>id</part>
+                            </key>
+                            <comment>CONSTRAINT unique_email UNIQUE (email)</comment>
+                        </table>
+                        <table x="582" y="209" name="task">
+                            <row name="id" null="1" autoincrement="1">
+                                <datatype>INTEGER</datatype>
                                 <default>NULL</default></row>
-                                <key type="PRIMARY" name="">
-                                    <part>id</part>
-                                </key>
-                                <comment>CONSTRAINT unique_email UNIQUE (email)</comment>
-                            </table>
-                            <table x="582" y="209" name="task">
-                                <row name="id" null="1" autoincrement="1">
+                                <row name="id_user" null="1" autoincrement="0">
                                     <datatype>INTEGER</datatype>
-                                    <default>NULL</default></row>
-                                    <row name="id_user" null="1" autoincrement="0">
-                                        <datatype>INTEGER</datatype>
-                                        <default>NULL</default><relation table="user" row="id" />
-                                    </row>
-                                    <row name="id_list" null="1" autoincrement="0">
-                                        <datatype>INTEGER</datatype>
-                                        <default>NULL</default><relation table="list" row="id" />
-                                    </row>
-                                    <row name="name" null="0" autoincrement="0">
+                                    <default>NULL</default><relation table="user" row="id" />
+                                </row>
+                                <row name="id_list" null="1" autoincrement="0">
+                                    <datatype>INTEGER</datatype>
+                                    <default>NULL</default><relation table="list" row="id" />
+                                </row>
+                                <row name="name" null="0" autoincrement="0">
+                                    <datatype>VARCHAR</datatype>
+                                    <default>'NULL'</default></row>
+                                    <row name="notes" null="1" autoincrement="0">
                                         <datatype>VARCHAR</datatype>
-                                        <default>'NULL'</default></row>
-                                        <row name="notes" null="1" autoincrement="0">
-                                            <datatype>VARCHAR</datatype>
+                                        <default>NULL</default></row>
+                                        <row name="lat" null="1" autoincrement="0">
+                                            <datatype>DOUBLE</datatype>
                                             <default>NULL</default></row>
-                                            <row name="lat" null="1" autoincrement="0">
+                                            <row name="long" null="1" autoincrement="0">
                                                 <datatype>DOUBLE</datatype>
                                                 <default>NULL</default></row>
-                                                <row name="long" null="1" autoincrement="0">
-                                                    <datatype>DOUBLE</datatype>
+                                                <row name="address" null="1" autoincrement="0">
+                                                    <datatype>VARCHAR</datatype>
                                                     <default>NULL</default></row>
-                                                    <row name="address" null="1" autoincrement="0">
-                                                        <datatype>VARCHAR</datatype>
-                                                        <default>NULL</default>
-                                                    </row>
-                                                    <row name="visited" null="0" autoincrement="0">
+                                                    <row name="done" null="0" autoincrement="0">
                                                         <datatype>BOOLEAN</datatype>
                                                         <default>'false'</default></row>
                                                         <row name="creation" null="1" autoincrement="0">

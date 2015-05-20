@@ -9,7 +9,7 @@ var config          = require('./config');
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', 'http://localhost:8100');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type,X-Auth-Token');
+    res.header('Access-Control-Allow-Headers', 'Content-Type,X-Auth-Token,x-access-token');
 
     next();
 };
@@ -42,6 +42,7 @@ router.use(middleware.ensureAuthenticated);
 router.put('/user/:id', UserCtrl.update);
 router.delete('/user/:id', UserCtrl.delete);
 router.get('/tasks/:id_list', TaskCtrl.getTasksByList);
+router.post('/task', TaskCtrl.addTask);
 /*
 router.get('/places', PlaceCtrl.getAll);
 router.post('/place', PlaceCtrl.add);

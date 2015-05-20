@@ -18,7 +18,7 @@ CREATE TABLE "task" (
     "lat" double precision ,
     "long" double precision ,
     "address" VARCHAR ,
-    "visited" BOOLEAN NOT NULL DEFAULT 'false' ,
+    "done" BOOLEAN NOT NULL DEFAULT 'false' ,
     "creation" TIMESTAMP WITHOUT TIME ZONE ,
     PRIMARY KEY ("id")
 );

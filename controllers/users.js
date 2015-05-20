@@ -49,13 +49,17 @@ exports.getUser = function(req, res) {
         client.query(queryTxt, [email], function(error, result) {
             if(error) {
                 res.status(500).send(error);
+            } else if (result.rows.length === 0) {
+                res.status(500).send("User not found");
             } else {
+
+                console.log(result.rows.length);
                 var encryptedPassword = result.rows[0].password;
 
                 if (bcrypt.compareSync(password, encryptedPassword)) {
                     var expires = moment().add(1, "days").unix();
                     var jsonClaims = {
-                        "sub": result.rows[0].nickname,
+                        "sub": result.rows[0].id,
                         "exp": expires
                     };
                     var token = jwt.sign(jsonClaims, config.PRIVATE_KEY, { algorithm: 'RS512' });
