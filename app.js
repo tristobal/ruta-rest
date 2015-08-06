@@ -43,6 +43,7 @@ router.put('/user/:id', UserCtrl.update);
 router.delete('/user/:id', UserCtrl.delete);
 router.get('/tasks/:id_list', TaskCtrl.getTasksByList);
 router.get('/task/:id_task', TaskCtrl.getTaskById);
+router.put('/task/:id_task', TaskCtrl.update);
 router.post('/task', TaskCtrl.addTask);
 /*
 router.get('/places', PlaceCtrl.getAll);
