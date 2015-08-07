@@ -1,13 +1,27 @@
 {
-  "name": "node-api-rest-example",
-  "version": "0.4.0",
-  "dependencies": {
-    "bcrypt": "^0.8.2",
-    "body-parser": "^1.5.1",
-    "express": " ^4.7.1",
-    "jsonwebtoken": "^5.0.0",
-    "method-override": "^2.1.2",
-    "moment": "^2.10.2",
-    "pg": "^4.3.0"
-  }
+    "name": "Ruta-REST",
+    "version": "0.4.0",
+    "description": "Servicio Rest que consumira La Ruta App",
+    "main": "app.js",
+    "scripts": {
+        "test": "node app.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tristobal/ruta-rest.git"
+    },
+    "author": "Ido",
+    "license": "BSD-2-Clause",
+    "bugs": {
+        "url": "https://github.com/tristobal/ruta-rest/issues"
+    },
+    "dependencies": {
+        "bcrypt": "^0.8.2",
+        "body-parser": "^1.5.1",
+        "express": " ^4.7.1",
+        "jsonwebtoken": "^5.0.0",
+        "method-override": "^2.1.2",
+        "moment": "^2.10.2",
+        "pg": "^4.3.0"
+    }
 }
