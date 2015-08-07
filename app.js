@@ -38,20 +38,13 @@ var middleware = require('./middleware');
 //Rutas API Privadas
 var router = express.Router();
 router.use(middleware.ensureAuthenticated);
-//router.get('/users', UserCtrl.getAll);
 router.put('/user/:id', UserCtrl.update);
 router.delete('/user/:id', UserCtrl.delete);
 router.get('/tasks/:id_list', TaskCtrl.getTasksByList);
 router.get('/task/:id_task', TaskCtrl.getTaskById);
 router.put('/task/:id_task', TaskCtrl.update);
 router.post('/task', TaskCtrl.addTask);
-/*
-router.get('/places', PlaceCtrl.getAll);
-router.post('/place', PlaceCtrl.add);
-router.get('/place/:id', PlaceCtrl.findById);
-router.put('/place/:id', PlaceCtrl.update);
-router.delete('/place/:id', PlaceCtrl.delete);
-*/
+router.delete('/task/:id_task', TaskCtrl.delete);
 app.use('/api', router);
 
 //Rutas API Públicas

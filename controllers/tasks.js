@@ -30,7 +30,7 @@ exports.getTaskById = function(req, res) {
             res.status(500).send(err);
         } else {
 
-            var query = client.query("SELECT * FROM task WHERE id = $1 ORDER BY name", [req.params.id_task]);
+            var query = client.query("SELECT * FROM task WHERE id = $1", [req.params.id_task]);
             var results = [];
             query.on('row', function(row) {
                 results.push(row);
@@ -74,14 +74,12 @@ exports.addTask = function(req, res) {
 exports.update = function(req, res) {
     var idTask = req.params.id_task;
     pg.connect(connectionString, function(err, client, done) {
-        var queryTxt = "UPDATE task SET name = $1, notes = $2, lat = $3, long = $4, address = $5 WHERE id = $6";
-        client.query(queryTxt, [req.body.name, req.body.notes, req.body.lat, req.body.long, req.body.address, idTask], function(error, result) {
+        var queryTxt = "UPDATE task SET name = $1, notes = $2, lat = $3, long = $4, address = $5, done = $6 WHERE id = $7";
+        client.query(queryTxt, [req.body.name, req.body.notes, req.body.lat, req.body.long, req.body.address, req.body.done, idTask], function(error, result) {
             if(error) {
-                console.log("ERROR al agregar tarea." + error);
+                console.log("ERROR al editar tarea." + error);
                 res.status(500).send(error);
             } else {
-                console.log("----------------> " + JSON.stringify(result) + req.body.name);
-                console.log("----------------> " + req.body.name );
                 var results = [];
                 var query = client.query("SELECT * FROM task WHERE id = $1", [idTask]);
                 query.on('row', function(row) {
@@ -98,13 +96,25 @@ exports.update = function(req, res) {
 };
 
 exports.delete = function(req, res) {
-    /*Place.findByIdAndRemove(req.params.id, function(err, post) {
-        if (err) {
-            return res.send(500, err.message);
-        } else if (post) {
-            res.status(200).json({ message: 'Successfully deleted' });
-        } else {
-            res.status(404).json({ message: 'Record not found' });
-        }
-    });*/
+    var idTask = req.params.id_task;
+    pg.connect(connectionString, function(err, client, done) {
+        var queryTxt = "DELETE FROM task WHERE id = $1";
+        client.query(queryTxt, [idTask], function(error, result) {
+            if(error) {
+                console.log("ERROR al borrar tarea." + error);
+                res.status(500).send(error);
+            } else {
+                var query = client.query("SELECT * FROM task WHERE id_list = $1 ORDER BY name", [config.ID_LIST_RUTA]);
+                var results = [];
+                query.on('row', function(row) {
+                    results.push(row);
+                });
+
+                query.on('end', function() {
+                    client.end();
+                    res.status(200).json(results);
+                });
+            }
+        });
+    });
 };
